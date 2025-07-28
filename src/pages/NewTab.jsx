@@ -305,6 +305,7 @@ export default function NewTab() {
       z-index: 1000;
       color: white;
       background: ${type === 'error' ? '#ef4444' : '#10b981'};
+      animation: slideIn 0.3s ease;
     `;
     notification.textContent = message;
     document.body.appendChild(notification);

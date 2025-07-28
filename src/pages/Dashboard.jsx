@@ -19,7 +19,8 @@ const {
   FiPieChart, 
   FiList,
   FiHome,
-  FiHeart
+  FiHeart,
+  FiDownload
 } = FiIcons;
 
 export default function Dashboard() {
@@ -261,6 +262,40 @@ export default function Dashboard() {
   const clearError = () => {
     setError(null);
   };
+  
+  const downloadExtension = () => {
+    const downloadLink = document.createElement('a');
+    downloadLink.href = '/extension/tabboard-extension.zip';
+    downloadLink.download = 'tabboard-extension.zip';
+    downloadLink.click();
+    
+    // Show notification
+    showNotification('Download started! Check your downloads folder.');
+  };
+  
+  const showNotification = (message, type = 'success') => {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 1000;
+      color: white;
+      background: ${type === 'error' ? '#ef4444' : '#10b981'};
+      animation: slideIn 0.3s ease;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
+  };
 
   const renderCollectionsTab = () => (
     <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -462,14 +497,25 @@ export default function Dashboard() {
         <p className="text-white/80 mb-4">
           Install the TabBoard Chrome extension for the full experience.
         </p>
-        <a 
-          href="/extension/tabboard-extension.zip"
-          download
-          className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-lg px-4 py-2 rounded-lg font-medium transition-all"
-        >
-          <SafeIcon icon={FiDownload} />
-          Download Extension
-        </a>
+        <div className="space-y-4">
+          <button
+            onClick={downloadExtension}
+            className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-lg px-4 py-2 rounded-lg font-medium transition-all"
+          >
+            <SafeIcon icon={FiDownload} />
+            Download Extension
+          </button>
+          
+          <div className="text-sm text-white/70">
+            <p className="mb-2">Installation instructions:</p>
+            <ol className="list-decimal pl-5 space-y-1">
+              <li>Unzip the downloaded file</li>
+              <li>Open Chrome and go to <code className="bg-white/10 px-1 rounded">chrome://extensions</code></li>
+              <li>Enable "Developer mode" (top-right)</li>
+              <li>Click "Load unpacked" and select the unzipped folder</li>
+            </ol>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

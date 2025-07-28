@@ -15,7 +15,8 @@ const {
   FiArrowRight, 
   FiGithub,
   FiInfo,
-  FiHeart
+  FiHeart,
+  FiChrome
 } = FiIcons;
 
 export default function Home() {
@@ -108,6 +109,33 @@ export default function Home() {
     downloadLink.href = '/extension/tabboard-extension.zip';
     downloadLink.download = 'tabboard-extension.zip';
     downloadLink.click();
+    
+    // Show success notification
+    showNotification('Download started! Follow the installation instructions below.');
+  };
+  
+  const showNotification = (message, type = 'success') => {
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.className = `notification ${type}`;
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      z-index: 1000;
+      color: white;
+      background: ${type === 'error' ? '#ef4444' : '#10b981'};
+      animation: slideIn 0.3s ease;
+    `;
+    notification.textContent = message;
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      notification.remove();
+    }, 3000);
   };
 
   if (isLoading) {
@@ -166,43 +194,13 @@ export default function Home() {
         </div>
       </motion.header>
 
-      {/* Features */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <motion.h2 
-          className="text-4xl font-bold text-center mb-16"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
-          Powerful Features
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <motion.div
-              key={index}
-              className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 * index, duration: 0.6 }}
-              whileHover={{ y: -8, transition: { duration: 0.2 } }}
-            >
-              <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-6`}>
-                <SafeIcon icon={feature.icon} className="text-2xl text-white" />
-              </div>
-              <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
-              <p className="text-white/80 leading-relaxed">{feature.description}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Extension Download */}
+      {/* Extension Download (New Section) */}
       <section className="max-w-5xl mx-auto px-6 py-16">
         <motion.div
           className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 text-center"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
+          transition={{ delay: 0.2, duration: 0.6 }}
         >
           <h2 className="text-3xl font-bold mb-6">Download Chrome Extension</h2>
           <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
@@ -229,6 +227,19 @@ export default function Home() {
               >
                 <SafeIcon icon={FiGithub} className="text-xl" />
                 GitHub Repository
+              </a>
+              
+              <a 
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  showNotification('Coming soon to Chrome Web Store!', 'info');
+                }}
+                className="bg-white/10 text-white border-2 border-white/30 px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white/20 transition-all duration-300 min-w-[200px] flex items-center justify-center gap-2"
+              >
+                <SafeIcon icon={FiChrome} className="text-xl" />
+                Chrome Web Store
+                <span className="text-xs bg-white/20 px-2 py-0.5 rounded ml-1">Soon</span>
               </a>
             </div>
             
@@ -263,6 +274,36 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
+      </section>
+
+      {/* Features */}
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <motion.h2 
+          className="text-4xl font-bold text-center mb-16"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          Powerful Features
+        </motion.h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index, duration: 0.6 }}
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+            >
+              <div className={`w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-xl flex items-center justify-center mb-6`}>
+                <SafeIcon icon={feature.icon} className="text-2xl text-white" />
+              </div>
+              <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+              <p className="text-white/80 leading-relaxed">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* Getting Started */}

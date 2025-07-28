@@ -223,3 +223,27 @@ MIT License - see LICENSE file for details.
 ---
 
 **TabBoard** - Built with ❤️ and frustration by Alaa Qweider
+
+## Recent Updates
+
+### Version 1.0.2 (Latest)
+- Added extension download section to the main webpage
+- Improved installation instructions with step-by-step guide
+- Added "Built with ❤️ and frustration by Alaa Qweider" footer across all pages
+- Implemented consistent version number display
+- Added demo login credentials: alaa@nulled.ai
+- Improved responsive design and error handling
+- Added loading states for better user experience
+
+### Version 1.0.1
+- Fixed bugs in tab collection management
+- Improved AI clustering algorithm
+- Added keyboard shortcut documentation
+- Enhanced error handling and notifications
+
+### Version 1.0.0
+- Initial beta release
+- Core tab management functionality
+- AI-powered tab clustering
+- Command bar with fuzzy search
+- Session saving and restoration
