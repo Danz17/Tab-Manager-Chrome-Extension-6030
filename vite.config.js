@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,23 +8,25 @@ export default defineConfig({
   base: './',
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': resolve(__dirname, './src')
     }
   },
   build: {
     outDir: 'dist',
+    emptyOutDir: true,
     sourcemap: true,
     rollupOptions: {
       input: {
-        newtab: path.resolve(__dirname, 'newtab.html'),
-        popup: path.resolve(__dirname, 'popup.html'),
-        welcome: path.resolve(__dirname, 'welcome.html'),
-        settings: path.resolve(__dirname, 'settings.html'),
-        background: path.resolve(__dirname, 'background.js'),
-        content: path.resolve(__dirname, 'content.js')
+        index: resolve(__dirname, 'index.html'),
+        newtab: resolve(__dirname, 'newtab.html'),
+        popup: resolve(__dirname, 'popup.html'),
+        welcome: resolve(__dirname, 'welcome.html'),
+        settings: resolve(__dirname, 'settings.html')
       },
       output: {
-        entryFileNames: '[name].js'
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name].[ext]'
       }
     }
   }
