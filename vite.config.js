@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   base: './',
@@ -14,11 +13,10 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    sourcemap: true,
+    sourcemap: false,
     rollupOptions: {
       input: {
-        index: resolve(__dirname, 'index.html'),
-        newtab: resolve(__dirname, 'newtab.html'),
+        main: resolve(__dirname, 'newtab.html'),
         popup: resolve(__dirname, 'popup.html'),
         welcome: resolve(__dirname, 'welcome.html'),
         settings: resolve(__dirname, 'settings.html')
@@ -26,7 +24,12 @@ export default defineConfig({
       output: {
         entryFileNames: 'assets/[name].js',
         chunkFileNames: 'assets/[name].js',
-        assetFileNames: 'assets/[name].[ext]'
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name.endsWith('.css')) {
+            return 'assets/[name][extname]';
+          }
+          return 'assets/[name][extname]';
+        }
       }
     }
   }

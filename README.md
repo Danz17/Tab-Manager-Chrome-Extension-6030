@@ -2,6 +2,8 @@
 
 A powerful Chrome extension that replaces your new tab page with an intelligent tab management board featuring AI-powered clustering, automation, and advanced productivity features.
 
+![TabBoard Screenshot](https://i.imgur.com/example.png)
+
 ## Features
 
 ### 🤖 AI-Powered Organization
@@ -40,18 +42,19 @@ A powerful Chrome extension that replaces your new tab page with an intelligent 
 
 ## Installation
 
-### From Chrome Web Store
+### From Chrome Web Store (Coming Soon)
 1. Visit the Chrome Web Store
 2. Search for "TabBoard"
 3. Click "Add to Chrome"
 4. Follow the installation prompts
 
 ### Manual Installation (Development)
-1. Clone this repository
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" in the top right
-4. Click "Load unpacked" and select the extension directory
-5. The extension will appear in your extensions list
+1. Download the extension ZIP file from the website
+2. Unzip the file to a location on your computer
+3. Open Chrome and navigate to `chrome://extensions/`
+4. Enable "Developer mode" using the toggle in the top right
+5. Click "Load unpacked" and select the unzipped extension folder
+6. The extension will appear in your extensions list
 
 ## Usage
 
@@ -97,7 +100,6 @@ Create custom automation rules to:
 3. Or navigate directly via the settings button in the new tab page
 
 ### Available Settings
-
 #### General
 - Theme selection (Light/Dark/Auto)
 - Default collection naming format
@@ -128,72 +130,9 @@ Create custom automation rules to:
 - Settings reset options
 - Cross-device sync preparation
 
-## Data Storage
-
-### Local Storage
-All data is stored locally using Chrome's storage API with the following structure:
-- `collections_*`: Encrypted tab collections
-- `settings`: User preferences and configuration
-- `automationRules`: Custom automation rules
-- `tab_activity_*`: Tab usage tracking data
-- `tab_session_*`: Session restoration data
-
-### Encryption
-- **Algorithm**: AES-256-GCM
-- **Key Generation**: Cryptographically secure random keys
-- **Storage**: Keys stored locally, never transmitted
-- **Scope**: All user data except basic settings
-
-### Data Export Format
-```json
-{
-  "collections": [...],
-  "settings": {...},
-  "automationRules": [...],
-  "exportedAt": "ISO-8601-timestamp",
-  "version": "1.0.0"
-}
-```
-
-## Architecture
-
-### Core Components
-- **TabBoard**: Main interface controller
-- **StorageManager**: Encrypted data persistence
-- **TabManager**: Chrome tabs API integration
-- **AIClusterer**: Machine learning clustering engine
-- **AutomationEngine**: Rules processing and execution
-- **CommandBar**: Search and navigation interface
-
-### Background Services
-- **Tab Activity Tracking**: Monitor tab usage patterns
-- **Automation Processing**: Execute rules and triggers
-- **Session Management**: Preserve scroll positions and form data
-- **Cleanup Tasks**: Periodic data maintenance
-
-### Content Scripts
-- **Scroll Position Tracking**: Capture and restore scroll states
-- **Form Data Preservation**: Save non-sensitive form inputs
-- **Activity Monitoring**: Track user engagement metrics
-
-## Performance
-
-### Optimization Features
-- **Lazy Loading**: Collections loaded on demand
-- **Efficient Search**: Indexed fuzzy search algorithms
-- **Memory Management**: Automatic cleanup of old data
-- **Background Processing**: Non-blocking automation execution
-
-### Resource Usage
-- **Memory**: ~10-50MB depending on collection size
-- **Storage**: Scales with saved tabs (typically <100MB)
-- **CPU**: Minimal impact with periodic background tasks
-- **Network**: Zero network usage (fully offline)
-
 ## Troubleshooting
 
 ### Common Issues
-
 #### Extension Not Loading
 1. Check Chrome version compatibility (minimum: Chrome 88)
 2. Verify extension is enabled in `chrome://extensions/`
@@ -218,13 +157,6 @@ All data is stored locally using Chrome's storage API with the following structu
 3. Disable unused automation rules
 4. Limit collection sizes
 
-### Debug Mode
-Enable debug logging by:
-1. Opening Chrome DevTools (F12)
-2. Navigate to Console tab
-3. Enter: `localStorage.setItem('tabboard_debug', 'true')`
-4. Reload the extension
-
 ## Contributing
 
 ### Development Setup
@@ -247,21 +179,6 @@ Enable debug logging by:
 - Check performance impact
 - Validate data encryption/decryption
 - Test automation rules thoroughly
-
-## Security
-
-### Threat Model
-- **Local Data Access**: Mitigated by encryption
-- **Extension Permissions**: Minimal required permissions only
-- **Data Exfiltration**: No network access, local-only storage
-- **Cross-Site Scripting**: Content Security Policy enforcement
-
-### Best Practices
-- Regular security audits
-- Minimal permission requests
-- Secure random key generation
-- Input validation and sanitization
-- Safe data serialization
 
 ## Roadmap
 
@@ -301,9 +218,8 @@ MIT License - see LICENSE file for details.
 
 ### Contact
 - Email: support@tabboard.dev
-- GitHub: [@tabboard](https://github.com/tabboard)
-- Twitter: [@TabBoardExt](https://twitter.com/TabBoardExt)
+- GitHub: [@alaa-qweider](https://github.com/alaa-qweider/tabboard)
 
 ---
 
-**TabBoard** - Transform your browsing experience with intelligent tab management.
+**TabBoard** - Built with ❤️ and frustration by Alaa Qweider

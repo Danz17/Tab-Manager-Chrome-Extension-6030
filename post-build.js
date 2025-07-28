@@ -1,34 +1,67 @@
 import fs from 'fs-extra';
 import { join } from 'path';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-// Copy non-bundled files to dist
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const filesToCopy = [
   'manifest.json',
   'background.js',
   'content.js',
-  'icons'
+  'popup.js',
+  'settings.js',
+  'welcome.js',
+  'icons',
+  'styles'
+];
+
+const foldersToCreate = [
+  'dist/icons',
+  'dist/styles'
 ];
 
 async function copyFiles() {
   try {
-    for (const file of filesToCopy) {
-      await fs.copy(file, join('dist', file));
+    console.log('Starting post-build processing...');
+
+    // Create necessary folders
+    for (const folder of foldersToCreate) {
+      await fs.ensureDir(folder);
+      console.log(`Created folder: ${folder}`);
     }
-    
-    // Update HTML files to reference correct script paths
+
+    // Copy files
+    for (const file of filesToCopy) {
+      if (await fs.pathExists(file)) {
+        await fs.copy(file, join('dist', file));
+        console.log(`Copied: ${file}`);
+      } else {
+        console.warn(`File not found: ${file}`);
+      }
+    }
+
+    // Fix HTML files to use correct asset paths
     const htmlFiles = ['newtab.html', 'popup.html', 'welcome.html', 'settings.html'];
     
     for (const htmlFile of htmlFiles) {
-      if (await fs.pathExists(join('dist', htmlFile))) {
-        let content = await fs.readFile(join('dist', htmlFile), 'utf8');
+      const distPath = join('dist', htmlFile);
+      if (await fs.pathExists(distPath)) {
+        let content = await fs.readFile(distPath, 'utf8');
         
-        // Replace script references
+        // Fix script and CSS references for Vite build
         content = content.replace(
-          /<script src="(.*?)\.js"><\/script>/g, 
-          '<script src="assets/$1.js"></script>'
+          /src="\.\/src\/(.*?)\.jsx"/g,
+          'src="assets/$1.js"'
+        );
+        content = content.replace(
+          /href="\.\/src\/(.*?)\.css"/g,
+          'href="assets/$1.css"'
         );
         
-        await fs.writeFile(join('dist', htmlFile), content, 'utf8');
+        await fs.writeFile(distPath, content, 'utf8');
+        console.log(`Updated paths in: ${htmlFile}`);
       }
     }
     
