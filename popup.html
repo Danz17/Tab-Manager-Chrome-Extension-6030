@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabBoard</title>
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <h1>TabBoard</h1>
+      <button id="openNewTab" class="header-btn">Open Board</button>
+    </header>
+    
+    <div class="quick-stats">
+      <div class="stat">
+        <span class="stat-number" id="currentTabsCount">0</span>
+        <span class="stat-label">Open Tabs</span>
+      </div>
+      <div class="stat">
+        <span class="stat-number" id="collectionsCount">0</span>
+        <span class="stat-label">Collections</span>
+      </div>
+    </div>
+    
+    <div class="quick-actions">
+      <button id="saveAllTabs" class="action-btn primary">
+        💾 Save All Tabs
+      </button>
+      <button id="runAIClustering" class="action-btn">
+        🤖 AI Cluster
+      </button>
+      <button id="openSettings" class="action-btn">
+        ⚙️ Settings
+      </button>
+    </div>
+    
+    <div class="recent-collections">
+      <h3>Recent Collections</h3>
+      <div id="recentCollectionsList" class="collections-list">
+        <!-- Collections will be populated here -->
+      </div>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>

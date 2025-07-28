@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TabBoard Settings</title>
+  <link rel="stylesheet" href="styles/settings.css">
+</head>
+<body>
+  <div class="settings-container">
+    <header class="settings-header">
+      <h1>TabBoard Settings</h1>
+      <button id="backToBoard" class="back-btn">← Back to Board</button>
+    </header>
+
+    <nav class="settings-nav">
+      <button class="nav-btn active" data-section="general">General</button>
+      <button class="nav-btn" data-section="automation">Automation</button>
+      <button class="nav-btn" data-section="ai">AI & Clustering</button>
+      <button class="nav-btn" data-section="privacy">Privacy & Security</button>
+      <button class="nav-btn" data-section="import-export">Import/Export</button>
+    </nav>
+
+    <main class="settings-content">
+      <!-- General Settings -->
+      <section id="general" class="settings-section active">
+        <h2>General Settings</h2>
+        
+        <div class="setting-group">
+          <label class="setting-label">
+            <span>Theme</span>
+            <select id="theme">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+              <option value="auto">Auto</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="showWelcome">
+            <span>Show welcome screen on first install</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="enableNotifications">
+            <span>Enable notifications</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">
+            <span>Default collection name format</span>
+            <input type="text" id="collectionNameFormat" placeholder="Session {date}">
+          </label>
+        </div>
+      </section>
+
+      <!-- Automation Settings -->
+      <section id="automation" class="settings-section">
+        <h2>Automation Rules</h2>
+        
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="autoArchiveIdle">
+            <span>Auto-archive idle tabs</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">
+            <span>Idle threshold (hours)</span>
+            <input type="number" id="idleThresholdHours" min="1" max="168" value="24">
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="autoCloseDuplicates">
+            <span>Automatically close duplicate tabs</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="autoGroupSimilar">
+            <span>Automatically group similar tabs</span>
+          </label>
+        </div>
+
+        <div class="automation-rules">
+          <h3>Custom Rules</h3>
+          <div id="rulesList" class="rules-list">
+            <!-- Rules will be populated here -->
+          </div>
+          <button id="addRule" class="add-rule-btn">+ Add Custom Rule</button>
+        </div>
+      </section>
+
+      <!-- AI Settings -->
+      <section id="ai" class="settings-section">
+        <h2>AI & Clustering</h2>
+        
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="enableAIClustering">
+            <span>Enable AI-powered tab clustering</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">
+            <span>Clustering sensitivity</span>
+            <select id="clusteringSensitivity">
+              <option value="low">Low (fewer, larger clusters)</option>
+              <option value="medium">Medium (balanced)</option>
+              <option value="high">High (more, smaller clusters)</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">
+            <span>Minimum cluster size</span>
+            <input type="number" id="minClusterSize" min="2" max="10" value="3">
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="autoRunClustering">
+            <span>Automatically run clustering when opening new tab</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Privacy Settings -->
+      <section id="privacy" class="settings-section">
+        <h2>Privacy & Security</h2>
+        
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="enableEncryption" checked disabled>
+            <span>Enable end-to-end encryption (always on)</span>
+          </label>
+          <p class="setting-description">All your data is encrypted locally and never leaves your device unprotected.</p>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label checkbox">
+            <input type="checkbox" id="excludeSensitiveData">
+            <span>Exclude sensitive form data from session saves</span>
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <label class="setting-label">
+            <span>Data retention period (days)</span>
+            <input type="number" id="dataRetentionDays" min="1" max="365" value="90">
+          </label>
+        </div>
+
+        <div class="setting-group">
+          <button id="clearAllData" class="danger-btn">Clear All Data</button>
+          <p class="setting-description">This will permanently delete all collections, settings, and automation rules.</p>
+        </div>
+      </section>
+
+      <!-- Import/Export Settings -->
+      <section id="import-export" class="settings-section">
+        <h2>Import & Export</h2>
+        
+        <div class="setting-group">
+          <h3>Export Data</h3>
+          <button id="exportData" class="export-btn">Export All Data</button>
+          <p class="setting-description">Download all your collections, settings, and rules as a JSON file.</p>
+        </div>
+
+        <div class="setting-group">
+          <h3>Import Data</h3>
+          <input type="file" id="importFile" accept=".json" style="display: none;">
+          <button id="importData" class="import-btn">Import Data</button>
+          <p class="setting-description">Import data from a previously exported JSON file.</p>
+        </div>
+
+        <div class="setting-group">
+          <h3>Reset to Defaults</h3>
+          <button id="resetSettings" class="danger-btn">Reset All Settings</button>
+          <p class="setting-description">Reset all settings to their default values (collections will be preserved).</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="settings.js"></script>
+</body>
+</html>
