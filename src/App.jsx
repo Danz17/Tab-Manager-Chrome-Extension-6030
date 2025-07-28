@@ -1,10 +1,16 @@
 import React from 'react';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <p className="text-lg text-gray-700">Start prompting (or editing) to see magic happen :)</p>
-    </div>
+    <Router>
+      <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-500">
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

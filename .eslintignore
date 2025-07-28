@@ -1,0 +1,17 @@
+# Chrome extension files
+background.js
+content.js
+popup.js
+settings.js
+welcome.js
+newtab.js
+
+# Build outputs
+dist/
+build/
+
+# Dependencies
+node_modules/
+
+# Extension specific files
+manifest.json
